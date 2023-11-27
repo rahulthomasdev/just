@@ -12,7 +12,7 @@ const ChatComponent = () => {
     const [messages, setMessages] = useState([]);
     const [userConnected, setUserConnected] = useState(false);
     const [clickCount, setClickCount] = useState(0);
-    const [commonInterests, setcommonInterests] = useState('');
+    const [commonInterests, setcommonInterests] = useState([]);
     let data;
     useEffect(() => {
         const socket = io('http://localhost:3002', { withCredentials: true });
@@ -34,7 +34,7 @@ const ChatComponent = () => {
         });
         socket.on('chatStart', (chatData) => {
             console.log(`Received chat message: ${chatData}`);
-            setcommonInterests(chatData.user1.interests.filter(interest => chatData.user2.interests.includes(interest)));
+            setcommonInterests(chatData?.userOneInterests?.filter(interest => chatData?.userTwoInterests?.includes(interest)));
         });
         socket.on('paired', ({ user1name, user2name }) => {
             data = { 'user1Name': user1name, 'user2Name': user2name, 'message': 'connected' };
@@ -97,9 +97,9 @@ const ChatComponent = () => {
                 {console.log(messages)}
                 {messages.map((msg, index) => (
                     <div key={index}>
-                        {(msg.message === 'connected' || msg.message === 'disconnected') ? <div className='text-center text-gray text-sm'>User {msg.user1Name !== userName ? (msg.user1Name ?? msg.userName) : (msg.user2Name ?? msg.userName)} {msg.message}. You both are interested in {commonInterests.forEach(element => {
+                        {(msg.message === 'connected' || msg.message === 'disconnected') ? <div className='text-center text-gray text-sm'>User {msg.user1Name !== userName ? (msg.user1Name ?? msg.userName) : (msg.user2Name ?? msg.userName)} {msg.message}.{commonInterests?.length > 0 ? "You both are interested in" + commonInterests?.forEach(element => {
                             return <span className='font-bold'>{element} </span>;
-                        })}</div> : null}
+                        }) : null}</div> : null}
                         {(msg.message !== 'connected' && msg.message !== 'disconnected') && (msg.userId === userId ? <div className='text-right'><div className='m-1 p-3 bg-teal-500 rounded-full rounded-tr-none text-black inline-block '><div className='!text-gray text-xs' style={{ color: user1color }}>{msg.userName}</div> {msg.message}</div> </div> : <div className='text-left'><div className='m-1 p-3 bg-white rounded-full rounded-tl-none text-black inline-block'><div className='!text-gray text-xs' style={{ color: user2color }}>{msg.userName}</div> {msg.message}</div></div>)}
                     </div>
                 ))}

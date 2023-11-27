@@ -56,45 +56,39 @@ const activeChatRooms = new Map();
 // });
 
 io.on('connection', (socket) => {
-    console.log(`User ${socket.id} connected`);
-    const cookies = cookie.parse(socket.handshake.headers.cookie || '');
-    console.log(socket.handshake.headers);
-    console.log("cookies", cookies);
-    const userInterests = cookies.justSettings.interests;
+    const cookies = cookie.parse(socket.handshake.headers.cookie.justSettings || '');
+    console.log("Cookie", cookies);
+    const userInterests = cookies?.justSettings?.interests;
+    console.log("userInterests", userInterests);
     socket.interests = userInterests;
 
     waitingQueue.push(socket);
 
     if (waitingQueue.length >= 2) {
-        const user1 = waitingQueue.find(user => user.id !== socket.id);
         const user2 = socket;
         const roomId = generateRoomId();
 
         const matchingUser = findMatchingUserByInterests(user2, waitingQueue);
 
         if (matchingUser) {
-            const index1 = waitingQueue.indexOf(user1);
+            console.log('matching interests', 'u1', user2, 'u2', matchingUser);
+            const index1 = waitingQueue.indexOf(user2);
             const index2 = waitingQueue.indexOf(matchingUser);
 
             waitingQueue.splice(index1, 1);
             waitingQueue.splice(index2, 1);
 
-            startChat(user1, matchingUser, roomId);
+            startChat(user2, matchingUser, roomId);
         } else {
-            const randomUser = waitingQueue.find(user => user.id !== socket.id);
-            const index1 = waitingQueue.indexOf(user1);
-            const index2 = waitingQueue.indexOf(randomUser);
-
-            waitingQueue.splice(index1, 1);
-            waitingQueue.splice(index2, 1);
-
-            startChat(user1, randomUser, roomId);
+            const user1 = waitingQueue.shift();
+            const user2 = waitingQueue.shift();
+            console.log('random match', 'u1', user1, 'u2', user2);
+            const roomId = generateRoomId();
+            startChat(user1, user2, roomId);
         }
     }
 
     socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
-
         const index = waitingQueue.indexOf(socket);
         if (index !== -1) {
             waitingQueue.splice(index, 1);
@@ -104,7 +98,6 @@ io.on('connection', (socket) => {
         if (room) {
             const otherUser = getOtherUserInRoom(socket, room);
             io.to(otherUser.id).emit('chatEnd', { "userId": otherUser.id, "userName": otherUser.username, "message": 'disconnected' });
-            console.log(otherUser);
             closeChatRoom(room);
         }
     });
@@ -122,7 +115,7 @@ function findMatchingUserByInterests(user, queue) {
 
 function interestsMatch(interests1, interests2) {
 
-    return interests1.some(interest => interests2.includes(interest));
+    return interests1?.some(interest => interests2?.includes(interest));
 }
 
 
@@ -140,15 +133,13 @@ function startChat(user1, user2, roomId) {
     user2.join(roomId);
     activeChatRooms.set(roomId, { user1, user2 });
 
-    io.to(roomId).emit('chatStart', { "roomId": roomId, "user1": user1, "user2": user2 });
+    io.to(roomId).emit('chatStart', { "roomId": roomId, "userOneInterests": user1.interests, "userTwoInterests": user2.interests });
 
     user1.on('chatMessage', (messageData) => {
-        console.log(`Received message from user ${messageData.user1Id}: ${messageData.message}`);
         io.to(roomId).emit('chatMessage', messageData);
     });
 
     user2.on('chatMessage', (messageData) => {
-        console.log(`Received message from user ${messageData.user2Id}: ${messageData.message}`);
         io.to(roomId).emit('chatMessage', messageData);
     });
 
