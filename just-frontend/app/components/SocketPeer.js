@@ -15,7 +15,7 @@ const ChatComponent = () => {
     const [commonInterests, setcommonInterests] = useState([]);
     let data;
     useEffect(() => {
-        const socket = io('http://localhost:3002', { withCredentials: true });
+        const socket = io('https://just-backend-peer.onrender.com', { withCredentials: true });
 
         socket.on('connect', () => {
             console.log('Connected to the server:', socket.id);
