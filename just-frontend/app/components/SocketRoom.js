@@ -17,7 +17,7 @@ const SocketRoom = () => {
 
 
     useEffect(() => {
-        const newSocket = io('https://just-backend-room.onrender.com/');
+        const newSocket = io('https://just-backend-room.onrender.com');
         newSocket.on('connect', () => {
             console.log('Connected to the server');
             setUserConnected(true);

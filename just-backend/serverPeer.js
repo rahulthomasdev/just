@@ -7,7 +7,7 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const corsOptions = {
-    origin: ['https://just-iqx4.onrender.com/'],
+    origin: ['https://just-iqx4.onrender.com'],
     credentials: true,
 };
 const app = express();
@@ -15,7 +15,7 @@ app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-        origin: "https://just-iqx4.onrender.com/",
+        origin: "https://just-iqx4.onrender.com",
         methods: ["GET", "POST"],
         credentials: true,
     }
@@ -56,7 +56,7 @@ const activeChatRooms = new Map();
 // });
 
 io.on('connection', (socket) => {
-    const cookies = cookie.parse(socket.handshake.headers.cookie.justSettings || '');
+    const cookies = cookie.parse(socket.handshake.headers?.cookie?.justSettings || '');
     console.log("Cookie", cookies);
     const userInterests = cookies?.justSettings?.interests;
     console.log("userInterests", userInterests);

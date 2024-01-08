@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://just-iqx4.onrender.com",
         methods: ["GET", "POST"]
     }
 });
