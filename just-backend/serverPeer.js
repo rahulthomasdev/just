@@ -7,7 +7,7 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const corsOptions = {
-    origin: ['http://localhost:3000'],
+    origin: ['https://just-iqx4.onrender.com/'],
     credentials: true,
 };
 const app = express();
@@ -15,7 +15,7 @@ app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://just-iqx4.onrender.com/",
         methods: ["GET", "POST"],
         credentials: true,
     }
