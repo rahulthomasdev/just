@@ -1,4 +1,4 @@
-// File: C:\Workspace\JustUpdate\just\just-frontend\app\page.js
+// File: C:\WS\just\just\just-frontend\app\page.js
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

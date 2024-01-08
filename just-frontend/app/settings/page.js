@@ -24,7 +24,6 @@ export default function Settings() {
             placement: 'topRight'
         })
     }
-
     return (
         <div className="h-screen w-full flex flex-col">
             <Header />

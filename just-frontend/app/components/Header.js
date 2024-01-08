@@ -41,7 +41,7 @@ const Header = () => {
                 placement="left"
                 closable={false}
                 onClose={() => onClose()}
-                visible={state.visible}
+                open={state.visible}
                 style={{ background: "#01172a" }}
             >
                 <LeftMenu />
