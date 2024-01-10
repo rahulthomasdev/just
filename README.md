@@ -3,6 +3,8 @@ This is a simple real-time chat application built using Socket.io, React, and Ex
 
 Live Demo - https://just-iqx4.onrender.com/ (Render free tier may hibernate if inactive for 30s)
 
+![Just](https://ibb.co/fX7Bcm0)
+
 Features
 Room Mode: Users can create or join chat rooms to communicate with others in the same room.
 Peer-to-Peer Mode: Users can initiate one-on-one private chats with other users.
