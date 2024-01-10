@@ -3,7 +3,7 @@ This is a simple real-time chat application built using Socket.io, React, and Ex
 
 Live Demo - https://just-iqx4.onrender.com/ (Render free tier may hibernate if inactive for 30s)
 
-![Just]([https://i.ibb.co/0n38wPJ/Screenshot-4.png])
+![Just](https://i.ibb.co/0n38wPJ/Screenshot-4.png)
 
 Features
 Room Mode: Users can create or join chat rooms to communicate with others in the same room.
