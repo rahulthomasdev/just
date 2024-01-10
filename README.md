@@ -11,17 +11,14 @@ Socket.io: Real-time bidirectional event-based communication library.
 Setup Instructions
 Clone the repository:
 
-bash
 Copy code
 git clone https://github.com/your-username/chat-app.git
 Navigate to the project directory:
 
-bash
 Copy code
 cd just
 Install dependencies for both the client and server:
 
-bash
 Copy code
 # Install server dependencies
 cd backend
@@ -30,9 +27,9 @@ npm install
 # Install client dependencies
 cd fronend
 npm install
-Run the development server:
 
-bash
+#Run the development servers:
+
 Copy code
 # Run the server
 cd backend
