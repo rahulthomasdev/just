@@ -1,6 +1,8 @@
 Just - Simple Chat App with Socket.io
 This is a simple real-time chat application built using Socket.io, React, and Express.js. The app supports two modes: room-based chat and peer-to-peer chat.
 
+Live Demo - https://just-iqx4.onrender.com/ (Render free tier may hibernate if inactive for 30s)
+
 Features
 Room Mode: Users can create or join chat rooms to communicate with others in the same room.
 Peer-to-Peer Mode: Users can initiate one-on-one private chats with other users.
@@ -25,7 +27,7 @@ cd backend
 npm install
 
 # Install client dependencies
-cd fronend
+cd frontend
 npm install
 
 # Run the development servers:
