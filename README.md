@@ -28,7 +28,7 @@ npm install
 cd fronend
 npm install
 
-#Run the development servers:
+# Run the development servers:
 
 Copy code
 # Run the server
@@ -38,6 +38,7 @@ npm start
 # Run the client
 cd frontend
 npm start
+
 Open your browser and go to http://localhost:3000 to use the chat application.
 
 Usage
